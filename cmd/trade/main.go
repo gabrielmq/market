@@ -31,19 +31,6 @@ func main() {
 		"bootstrap.servers": "host.docker.internal:9094",
 	})
 
-	// for i := 0; i < 3; i++ {
-	// 	go func() {
-	// 		for msg := range kafkaMsgCh {
-	// 			wg.Add(1)
-	// 			tradeInput := dto.TradeInput{}
-	// 			if err := json.Unmarshal(msg.Value, &tradeInput); err != nil {
-	// 				panic(err)
-	// 			}
-	// 			ordersIn <- transformer.TransformInput(tradeInput)
-	// 		}
-	// 	}()
-	// }
-
 	go consumer.Consume(kafkaMsgCh)
 
 	book := entity.NewBook(ordersIn, ordersOut, wg)
